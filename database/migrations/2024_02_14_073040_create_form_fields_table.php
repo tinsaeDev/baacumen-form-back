@@ -19,7 +19,7 @@ return new class extends Migration {
             $table->json("options")->default("[]");
 
             // Validation
-            $table->boolean("required")->default(true);
+            $table->boolean("required_field")->default(true);
             $table->string("regex")->nullable();
             $table->integer("min")->nullable();
             $table->integer("max")->nullable();
