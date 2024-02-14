@@ -90,14 +90,19 @@ class FormController extends Controller
                     }
 
                     if ($formField) {
-                        $formField->update($field);
+                        $formField->update(
+
+                            [
+                                ...$field,
+                                ...$field["validation"]
+                            ]
+                        );
                     } else {
 
                         $formField = FormField::make([
                             ...$field,
                             ...$field["validation"]
                         ]);
-
                         $formField->form_id = $form->id;
                         $formField->save();
 
