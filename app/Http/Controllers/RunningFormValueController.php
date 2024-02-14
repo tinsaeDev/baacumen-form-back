@@ -11,8 +11,19 @@ class RunningFormValueController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
+    public function index(
+        RunningForm $instance
+
+
+    ) {
+
+
+        $instanceVals = RunningFormValue::where("running_form_id", $instance->id)->get();
+        return [
+            "data" => [
+                "values" => $instanceVals
+            ]
+        ];
         //
     }
 
@@ -23,21 +34,12 @@ class RunningFormValueController extends Controller
     {
 
 
-        foreach ($request->all() as $key => $value) {
+        $newValue = new RunningFormValue();
+        $newValue->running_form_id = $instance->id;
 
+        $newValue->values = $request->all();
 
-            $v = $value;
-            if (is_array($value)) {
-                $v = join(",", $value);
-            }
-
-            $newValue = new RunningFormValue();
-            $newValue->running_form_id = $instance->id;
-            $newValue->form_field_id = $key;
-            $newValue->value = $v;
-            $newValue->save();
-        }
-
+        $newValue->save();
 
         return [
             "data" => [

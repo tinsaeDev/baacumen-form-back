@@ -7,5 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class RunningFormValue extends Model
 {
+
     use HasFactory;
+
+
+    protected $casts = [
+        "values" => "array"
+    ];
 }
