@@ -14,7 +14,7 @@ class RunningFormController extends Controller
     public function index(Form $form)
     {
 
-        $instances = RunningForm::where("form_id", $form->id)->get();
+        $instances = RunningForm::where("form_id", $form->id)->with("form.fields")->get();
         return [
             "data" => [
                 "form_instances" => $instances
@@ -52,9 +52,18 @@ class RunningFormController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(RunningForm $runningForm)
+    public function show(Form $form, RunningForm $instance)
     {
-        //
+
+        $instance = RunningForm::where("id", $instance->id)->with("form.fields")->first();
+        return [
+            "data" => [
+                "form_instance" => $instance,
+                "id" => $instance->id
+            ]
+        ];
+
+
     }
 
     /**

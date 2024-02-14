@@ -13,7 +13,7 @@ return new class extends Migration {
         Schema::create('running_form_values', function (Blueprint $table) {
             $table->id();
             $table->foreignId('running_form_id')->constrained();
-            $table->string("label");
+            $table->foreignId('form_field_id')->constrained();            
             $table->string("value")->nullable();
             $table->timestamps();
         });
